@@ -1,0 +1,133 @@
+-- Creación de la base de datos
+CREATE DATABASE Fittrack;
+
+-- Creación tabla Usuarios
+CREATE TABLE Usuarios (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    tipo_usuario ENUM('NORMAL', 'PREMIUM') NOT NULL
+);
+
+-- Creación tabla Ejercicios
+CREATE TABLE Ejercicios (
+    id INT PRIMARY KEY,
+    nombre_ejercicio VARCHAR(255) NOT NULL,
+    tipo_ejercicio VARCHAR(255) NOT NULL
+);
+
+-- Creación tabla Musculos
+CREATE TABLE Musculos (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL
+);
+
+-- Creación tabla Entrenamiento
+CREATE TABLE Entrenamiento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ejercicio_id INT NOT NULL,
+    repeticiones INT NOT NULL,
+    series INT NOT NULL,
+    peso FLOAT NOT NULL,
+    fecha DATE NOT NULL,
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (ejercicio_id) REFERENCES Ejercicios(id),
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(id)
+);
+
+-- Creación tabla Ejercicios_Musculos
+CREATE TABLE Ejercicio_Musculos (
+    id INT PRIMARY KEY,
+    ejercicio_id INT NOT NULL,
+    musculo_id INT NOT NULL,
+    FOREIGN KEY (ejercicio_id) REFERENCES Ejercicios(id),
+    FOREIGN KEY (musculo_id) REFERENCES Musculos(id)
+);
+
+-- Creación tabla Contacto
+CREATE TABLE contacto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    nombre_usuario VARCHAR(255) NOT NULL,
+    correo_electronico VARCHAR(255) NOT NULL,
+    asunto VARCHAR(255) NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+-- Inserción de datos en la tabla Usuarios
+INSERT INTO usuarios (id, nombre, password, tipo_usuario) VALUES (1,'David','Gaspar','PREMIUM');
+INSERT INTO usuarios (id, nombre, password, tipo_usuario) VALUES (2,'Prueba','1234','Normal');
+
+-- Inserción de datos en la tabla Ejercicios
+INSERT INTO ejercicios (id,nombre_ejercicio,tipo_ejercicio) VALUES (1,'sentadilla','bodybuilding'),
+(2,'press de banca con barra','bodybuilding'),
+(3,'press militar','bodybuilding'),
+(4,'press de banca inclinado con barra','bodybuilding'),
+(5,'aperturas','bodybuilding'),
+(6,'fondos tríceps','bodybuilding'),
+(7,'polea tríceps','bodybuilding'),
+(8,'dominadas','bodybuilding'),
+(9,'peso muerto','bodybuilding'),
+(10,'remo','bodybuilding'),
+(11,'elevación lateral con mancuernas','bodybuilding'),
+(12,'thrusters','crossfit'),
+(13,'pull ups','crossfit'),
+(14,'burpees','crossfit'),
+(15,'double unders','crossfit'),
+(16,'toes to bars','crossfit'),
+(17,'wall balls','crossfit'),
+(18,'snatches','crossfit'),
+(19,'clean and jerks','crossfit'),
+(20,'swing','kettlebells'),
+(21,'turkish get up','kettlebells'),
+(22,'clean','kettlebells'),
+(23,'snatch','kettlebells'),
+(24,'deadlift','kettlebells'),
+(25,'row','kettlebells'),
+(26,'carry','kettlebells'),
+(27,'goblet squat','kettlebells');
+
+
+-- Inserción de datos en la tabla Musculos
+INSERT INTO musculos (id,nombre) VALUES
+(1,'pecho'),
+(2,'espalda'),
+(3,'hombros'),
+(4,'bíceps'),
+(5,'tríceps'),
+(6,'cuádriceps'),
+(7,'femorales'),
+(8,'glúteos'),
+(9,'abdominales');
+
+-- Inserción de datos en la tabla Ejercicio_Musculos
+INSERT INTO ejercicio_musculos(id, ejercicio_id,musculo_id) VALUES
+(1, 1, 6),
+(2, 2, 1),
+(3, 3, 3),
+(4, 4, 1),
+(5, 5, 1),
+(6, 6, 5),
+(7, 7, 5),
+(8, 8, 2),
+(9, 9, 7),
+(10, 10, 2),
+(11, 11, 3),
+(12, 12, 3),
+(13, 13, 2),
+(14, 14, 9),
+(15, 15, 8),
+(16, 16, 9),
+(17, 17, 3),
+(18, 18, 7),
+(19, 19, 3),
+(20, 20, 8),
+(21, 21, 9),
+(22, 22, 4),
+(23, 23, 4),
+(24, 24, 7),
+(25, 25, 2),
+(26, 26, 8),
+(27, 27, 6); 
