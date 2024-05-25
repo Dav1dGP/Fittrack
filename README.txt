@@ -13,7 +13,7 @@ Existe un usuario premium con las credenciales: David / Gaspar
 Existe un usuario normal con las credenciales: prueba / 1234
 
 El código fuente también se encuentra en Github:
-
+https://github.com/Dav1dGP/Fittrack
 
 Fdo.
 David Gaspar Pérez
